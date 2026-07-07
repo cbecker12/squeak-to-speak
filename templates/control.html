@@ -1,11 +1,32 @@
-<!doctype html> 
-<html>
-<head>
-    <title>Control</title>
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+    <meta charset="UTF-8"> 
+    <title>Control</title> 
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script> 
+    <script defer src="{{ url_for('static', filename='js/control.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/control.css') }}">
 </head>
 <body>
 
-    <h1>Control Panel</h1>
+    <div id="emoji-buttons">
+
+        <button onclick="sendEmoji('🐀')">🐀</button>
+
+        <button onclick="sendEmoji('🧀')">🧀</button>
+
+        <button onclick="sendEmoji('✨')">✨</button>
+
+        <button onclick="sendEmoji('🔥')">🔥</button>
+
+    </div>
+
+    <hr>
+
+    <button onclick="undo()">Undo</button>
+
+    <button onclick="clearDisplay()">Clear</button>
 
 </body>
 </html>

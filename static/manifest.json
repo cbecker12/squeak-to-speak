@@ -1,0 +1,22 @@
+{
+    "name": "Squeak to Speak",
+    "short_name": "Squeak",
+    "description": "Rat emoji display",
+    "start_url": "/display",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "orientation": "landscape",
+    "icons": [
+        {
+            "src": "/static/icons/duck.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/icons/duck2.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
