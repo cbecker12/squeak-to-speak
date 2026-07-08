@@ -13,3 +13,9 @@ function clearDisplay() {
 function undo() { 
     socket.emit("undo"); 
 } 
+
+socket.on("connect", () => {
+    socket.emit("register_client", {
+        type: "control"
+    });
+});

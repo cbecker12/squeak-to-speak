@@ -1,0 +1,19 @@
+body {
+
+    font-family: Arial, sans-serif;
+
+    margin: 40px;
+
+}
+
+#current-buffer {
+
+    font-size: 3rem;
+
+    min-height: 80px;
+
+    padding: 15px;
+
+    border: 1px solid black;
+
+} 

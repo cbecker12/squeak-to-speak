@@ -1,11 +1,83 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Admin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Squeak to Speak Admin</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
 </head>
+
 <body>
 
-    <h1>Admin Dashboard</h1>
+    <h1>Squeak to Speak Admin</h1>
+
+    <hr>
+
+    <h2>Server</h2>
+
+    <p>
+        <strong>Keyboard:</strong>
+        <span id="keyboard-status">...</span>
+    </p>
+
+    <p>
+        <strong>Display Clients:</strong>
+        <span id="display-count">0</span>
+    </p>
+
+    <p>
+        <strong>Control Clients:</strong>
+        <span id="control-count">0</span>
+    </p>
+
+    <hr>
+
+    <h2>Last Input</h2>
+
+    <p>
+        <strong>Last Key:</strong>
+        <span id="last-key"></span>
+    </p>
+
+    <p>
+        <strong>Last Emoji:</strong>
+        <span id="last-emoji"></span>
+    </p>
+
+    <hr>
+
+    <h2>Current Buffer</h2>
+
+    <div id="current-buffer"></div>
+
+    <hr> 
+
+    <h2>Server URLs</h2> 
+
+    <p>
+        <strong>Display:</strong> 
+        <span id="display-url"></span>
+    </p> 
+
+    <p>
+        <strong>Control:</strong> 
+        <span id="control-url"></span>
+    </p> 
+
+    <p>
+        <strong>Admin:</strong> 
+        <span id="admin-url"></span>
+    </p>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script src="{{ url_for('static',
+        filename='js/admin.js') }}"></script>
 
 </body>
+
 </html>

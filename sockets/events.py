@@ -1,30 +1,73 @@
-from flask import request 
-#from flask_socketio import emit 
-from extensions import socketio 
-from services.emoji_buffer import emoji_buffer 
-from sockets.emitter import update_display 
-from shared.constants import * 
+from flask import request
 
-@socketio.on("connect") 
-def connect(): 
-    print(f"Connected: {request.sid}") 
+from extensions import socketio
 
-@socketio.on("disconnect") 
-def disconnect(): 
-    print(f"Disconnected: {request.sid}") 
+import services.emoji_service as emoji_service
 
-@socketio.on(ADD_EMOJI) 
-def add_emoji(data): 
-    emoji_buffer.add(data["emoji"]) 
-    update_display() 
+from shared.constants import *
+from shared.state import ServerState
 
-@socketio.on(CLEAR_DISPLAY) 
-def clear_display(): 
-    emoji_buffer.clear() 
-    update_display() 
+from sockets.emitter import update_admin
 
-@socketio.on(UNDO) 
-def undo(): 
-    emoji_buffer.undo() 
-    update_display() 
-    
+
+client_types = {}
+
+
+@socketio.on("connect")
+def connect():
+    print(f"Connected: {request.sid}")
+
+
+@socketio.on("disconnect")
+def disconnect():
+    client_type = client_types.pop(request.sid, None)
+
+    if client_type == "display":
+        ServerState.display_clients = max(
+            0,
+            ServerState.display_clients - 1
+        )
+
+    elif client_type == "control":
+        ServerState.control_clients = max(
+            0,
+            ServerState.control_clients - 1
+        )
+
+    update_admin()
+
+    print(f"Disconnected: {request.sid}")
+
+
+@socketio.on(ADD_EMOJI)
+def add_emoji(data):
+    emoji_service.add_emoji(data["emoji"])
+
+
+@socketio.on(CLEAR_DISPLAY)
+def clear_display():
+    emoji_service.clear()
+
+
+@socketio.on(UNDO)
+def undo():
+    emoji_service.undo()
+
+
+@socketio.on("register_client")
+def register_client(data):
+    client_type = data.get("type")
+
+    client_types[request.sid] = client_type
+
+    if client_type == "display":
+        ServerState.display_clients += 1
+
+    elif client_type == "control":
+        ServerState.control_clients += 1
+
+    elif client_type == "admin":
+        # Dashboard only; no client count needed.
+        pass
+
+    update_admin()

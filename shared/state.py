@@ -1,10 +1,14 @@
 class ServerState:
 
-    display_connected = False
+    display_clients = 0
 
-    control_connected = False
+    control_clients = 0
 
-    admin_connected = False
+    keyboard_running = False
 
-    keyboard_connected = False 
+    last_key = "" 
+
+    last_emoji = "" 
+    
+    local_ip = "" 
     
