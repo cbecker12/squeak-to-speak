@@ -54,10 +54,19 @@ if __name__ == "__main__":
     
     print_startup_banner() 
 
-    socketio.run( 
-        app, 
-        host=HOST, 
-        port=PORT, 
-        debug=True,
-        use_reloader=False,
-    ) 
+    try: 
+        socketio.run( 
+            app, 
+            host=HOST, 
+            port=PORT, 
+            debug=True,
+            use_reloader=False,
+        ) 
+    
+    except KeyboardInterrupt: 
+        print() 
+        print("Stopping server...") 
+
+    finally: 
+        print("Server stopped.") 
+        

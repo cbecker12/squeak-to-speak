@@ -15,7 +15,7 @@ def update_display():
 
 def update_admin(): 
 
-    print(
+    """print(
         {
         "keyboard_running": ServerState.keyboard_running,
         "display_clients": ServerState.display_clients,
@@ -26,7 +26,7 @@ def update_admin():
         "port": PORT,
         "buffer": emoji_buffer.get_display_text(),
         }
-    )
+    )""" 
 
     socketio.emit(
         UPDATE_ADMIN, 
