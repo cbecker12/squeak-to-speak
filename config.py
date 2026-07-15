@@ -13,7 +13,13 @@ BASE_DIR = get_base_directory()
 
 CONFIG_FILE = BASE_DIR / "config.json"
 
-with open(CONFIG_FILE, encoding="utf-8") as file:
+if not CONFIG_FILE.exists(): 
+    raise FileNotFoundError( 
+        f"Could not find config.json\n" 
+        f"Expected location:\n{CONFIG_FILE}" 
+    ) 
+
+with CONFIG_FILE.open(encoding="utf-8") as file:
     CONFIG = json.load(file)
 
 HOST = CONFIG["server"]["host"]

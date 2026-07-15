@@ -4,6 +4,20 @@ import threading
 from shared.network import get_local_ip 
 from config import HOST, PORT 
 from shared.state import ServerState 
+from pathlib import Path 
+import sys 
+
+def get_resource_path(): 
+
+    if getattr(sys, "frozen", False): 
+        exe_dir = Path(sys.executable).parent 
+
+        if (exe_dir / "_internal").exists(): 
+            return exe_dir / "_internal" 
+
+        return exe_dir 
+    
+    return Path(__file__).resolve().parent 
 
 def print_startup_banner(): 
     ip = get_local_ip() 
@@ -25,7 +39,15 @@ def print_startup_banner():
     print("-" * 45) 
 
 def create_app(): 
-    app = Flask(__name__) 
+    #app = Flask(__name__) 
+
+    base_path = get_resource_path() 
+
+    app = Flask(
+        __name__, 
+        template_folder=base_path / "templates", 
+        static_folder=base_path / "static", 
+    ) 
 
     app.config["SECRET_KEY"] = "change-this-later"
     socketio.init_app(app) 
@@ -51,7 +73,7 @@ def create_app():
 
 if __name__ == "__main__": 
     app = create_app() 
-    
+
     print_startup_banner() 
 
     try: 
@@ -69,4 +91,3 @@ if __name__ == "__main__":
 
     finally: 
         print("Server stopped.") 
-        
