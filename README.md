@@ -17,3 +17,18 @@ STARTING THE SERVER:
 
 EDITING KEYBOARD MAPPINGS: 
     -Open config.json and add or change key mappings then restart the server 
+
+##### 
+
+BUNDLING WITH PYINSTALLER: 
+
+pyinstaller \
+    --onedir \
+    --name SqueakToSpeak \
+    --hidden-import keyboard \
+    --hidden-import engineio.async_drivers.threading \
+    --add-data "templates:templates" \
+    --add-data "static:static" \
+    app.py 
+
+Put config.json next to the created dist/SqueakToSpeak/SqueakToSpeak.exe file. 
